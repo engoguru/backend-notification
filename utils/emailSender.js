@@ -13,9 +13,9 @@ const transporter = nodemailer.createTransport({
 });
 
 // Reusable email sender function
-const emailSender = async (to, subject, html) => {
+const emailSender = async ({ to, subject, html }) => {
   const mailOptions = {
-    from: `<${process.env.EMAIL_USER}>`,
+    from: `<${process.env.EMAIL_SENDER}>`,
     to,
     subject,
     html
@@ -31,6 +31,6 @@ const emailSender = async (to, subject, html) => {
 };
 
 // Export the utility
-export default {
-  emailSender
-};
+export default emailSender;
+ 
+

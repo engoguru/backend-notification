@@ -4,20 +4,26 @@ import mongoose from 'mongoose';
 import connectDB from './db/connectDB.js';
 import cors from 'cors';
 const PORT = process.env.PORT || 5004;
+import cookieParser from 'cookie-parser';
 import notifyRoutes from './routes/notificationRoutes.js';
 // import { notFound, errorHandler } from '@your-scope/common/src/errors.js';
 
 const app = express();
-
+ app.use(cookieParser());
 //  db connect
 connectDB()
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
+
  app.use(express.json());
 
-app.get('/userhealth', (_,res)=>res.json({ok:true, service:'user-service'}));
+
+app.get('/notifyhealth', (_,res)=>res.json({ok:true, service:'notify-service'}));
 app.use('/notification', notifyRoutes);
-// app.use(notFound); app.use(errorHandler);
 
-// await mongoose.connect(process.env.MONGO_URI || 'mongodb://mongo:27017/users');
 
-app.listen(PORT, ()=> console.log(`user-service :${PORT}`));
+app.listen(PORT, ()=> console.log(`notify-service :${PORT}`));
+
+
